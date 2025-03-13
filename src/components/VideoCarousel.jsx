@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { hightlightsSlides } from '../constants'
+import gsap from 'gsap'
 
 const VideoCarousel = () => {
     const videoRef = useRef([])
@@ -16,7 +17,40 @@ const VideoCarousel = () => {
 
     })
 
+    const [loadedData, setLoadedData] = useState([])
+
     const { isEnd, isLastVideo, startPlay, videoId, isPlaying } = video;
+
+    useEffect(() => {
+
+        if (loadedData.length > 3) {
+            if (!isPlaying) {
+                videoRef.current[videoId].pause();
+            } else {
+                startPlay && videoRef.current[videoId].play();
+            }
+        }
+
+    }, [startPlay, videoId, isPlaying, loadedData])
+
+    useEffect(() => {
+        const currentProgress = 0;
+        let span = videoSpanRef.current
+
+        if(span[videoId]){
+            //animate the progress of the video
+            let anim = gsap.to(span[videoId], {
+                onUpdate: () => {
+
+                },
+
+                onComplete: () => {
+
+                }
+            })
+        }
+
+    }, [videoId, startPlay])
 
   return (
     <>
