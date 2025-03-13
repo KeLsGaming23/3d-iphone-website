@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { hightlightsSlides } from '../constants'
 
 const VideoCarousel = () => {
+    const videoRef = useRef([])
+    const videoSpanRef = useRef([])
+    const videoDivRef = useRef([])
+
+    const [video, setVideo] = useState({
+
+        isEnd: false,
+        startPlay: false,
+        videoId: 0,
+        isLastVideo: false,
+        isPlaying: false,
+
+    })
+
+    const { isEnd, isLastVideo, startPlay, videoId, isPlaying } = video;
+
   return (
     <>
         <div className='flex items-center'>
@@ -19,6 +35,14 @@ const VideoCarousel = () => {
                             >
                                 <source src={list.video} type='video/mp4' />
                             </video>
+                        </div>
+
+                        <div className='absolute top-12 left-[5%] z-10'>
+                            {list.textLists.map((text) => (
+                                <p key={text} className='md:text-2xl text-xl font-medium'>
+                                    {text}
+                                </p>
+                            ))}
                         </div>
 
                     </div>
